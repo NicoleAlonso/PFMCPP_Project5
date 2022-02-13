@@ -356,7 +356,7 @@ Computer::~Computer()
 
 void Computer::storeData(int numFiles, int fileSize, std::string fileName)
 {
-    std::string database = "added " + fileName;
+    std::string database = "added " + fileName + " to database";
     storageInGb -= numFiles * fileSize;
     std::cout << "Computer::storeData() " << database << std::endl;
 }
@@ -403,8 +403,9 @@ struct CoffeeShop
     ~CoffeeShop();
 
     CoffeeMachine coffeeMachine1;
+    Computer pc;
 
-    void prepareOrder(int cupsOrdered, int brewStrength);
+    void prepareOrder(int cupsOrdered, int brewStrength, std::string customerName);
     void cleanMachine(int cyclesMade);
 
 };
@@ -426,12 +427,11 @@ void CoffeeShop::cleanMachine(int cyclesMade)
         std::cout << "starting descaling program for " << coffeeMachine1.brandName << " machine 1 ..." << std::endl;
         std::cout << "resetting cycle counter... program finished!" << std::endl;
     }
-    else
-        return;
 }
 
-void CoffeeShop::prepareOrder(int cupsOrdered, int orderedStrength)
+void CoffeeShop::prepareOrder(int cupsOrdered, int orderedStrength, std::string customerName)
 {
+    pc.storeData(1, 12, customerName);
     coffeeMachine1.brewSettings.brewStrength = orderedStrength;
     coffeeMachine1.brewSettings.brewing(cupsOrdered, 0);
 }
@@ -469,7 +469,9 @@ void TransportTracking::transportStatus(int loaded, int toLoad)
         std::cout << "tracking status: Delivery is on its way" << std::endl;
     }
     else
+    {
         std::cout << "tracking status: transport still in process..." << std::endl;
+    }  
 }
 
 void TransportTracking::displayTransportItems()
@@ -526,9 +528,9 @@ int main()
     std::cout << "display brightness is now at: " << macBook.displayBrightness << '%' << std::endl;
     std::cout << "-------------------" << std::endl;
 
-    CoffeeShop LuigisCafe;
-    LuigisCafe.cleanMachine(45);
-    LuigisCafe.prepareOrder(2, 4);
+    CoffeeShop luigisCafe;
+    luigisCafe.cleanMachine(45);
+    luigisCafe.prepareOrder(2, 4, "Tom Miller");
     std::cout << "-------------------" << std::endl;
 
     TransportTracking trackingOrder;

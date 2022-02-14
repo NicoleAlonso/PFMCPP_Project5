@@ -103,6 +103,7 @@ struct CoffeeMachine
         void setBrewStrength(int brewStrength);
         bool flashDescalingIndicator(int waterHardness, int numCyclesMade);
         void brewing(int numOrder, int cupsBrewed);
+        void printTimeTilShutOff();
     };
 
     void heatWater(float tempInCelsius = 93.4f);
@@ -121,6 +122,7 @@ CoffeeMachine::~CoffeeMachine()
 {
     std::cout << "CoffeeMachine destroyed" << std::endl;
 }
+
 CoffeeMachine::Settings::Settings()
 {
     std::cout << "CoffeeMachine::Settings being constructed!" << std::endl;
@@ -162,6 +164,11 @@ void CoffeeMachine::Settings::brewing(int numOrder, int cupsBrewed)
         std::cout << "cups brewed: " << cupsBrewed << std::endl;
     }
     std::cout << "cups brewed: " << cupsBrewed << " -> Order is ready!" << std::endl;
+}
+
+void CoffeeMachine::Settings::printTimeTilShutOff()
+{
+    std::cout << "machine will shut down in: " << this->minutesUntilShutOff << " minutes" << std::endl;
 }
 
 void CoffeeMachine::heatWater(float heatTemp)
@@ -212,6 +219,7 @@ struct CargoShip
     void handleGoods(int amountOfContainers, bool shipIsEmpty = true);
     void burnFuel(float consumptionPerKm, float travelDistance, bool shipIsLoaded = true);
     bool readyForDeparture(int containersLoaded, int containersToLoad); 
+    void printCaptainName();
 
     CargoContent nextCargoLoad;
 };
@@ -330,6 +338,11 @@ bool CargoShip::readyForDeparture(int containersLoaded, int containersToLoad)
     }
     return false;
 }
+
+void CargoShip::printCaptainName()
+{
+    std::cout << "Captain " << this->captainName << " will lead this ship" << std::endl;
+}
 /*
  copied UDT 3:
  */
@@ -347,6 +360,7 @@ struct Computer
     void processData(float amountToProcess, float timeToProcess = 0.02f);
     void displayData(std::string fileName = "unknown", bool fullscreen = false);
     void changeDisplayBrightness(int newBrightVal);
+    void printDisplayBrightness();
 };
 
 Computer::Computer()
@@ -398,6 +412,12 @@ void Computer::changeDisplayBrightness(int newBrightVal)
         }
     }  
 }
+
+void Computer::printDisplayBrightness()
+{
+    std::cout << "display brightness is now at: " << this->displayBrightness << '%' << std::endl;
+}
+
 /*
  new UDT 4:
  with 2 member functions
@@ -412,7 +432,7 @@ struct CoffeeShop
 
     void prepareOrder(int cupsOrdered, int brewStrength, std::string customerName);
     void cleanMachine(int cyclesMade);
-
+    void printOrderedStrength();
 };
 
 CoffeeShop::CoffeeShop()
@@ -440,6 +460,12 @@ void CoffeeShop::prepareOrder(int cupsOrdered, int orderedStrength, std::string 
     coffeeMachine1.brewSettings.brewStrength = orderedStrength;
     coffeeMachine1.brewSettings.brewing(cupsOrdered, 0);
 }
+
+void CoffeeShop::printOrderedStrength()
+{
+    std::cout << "ordered brew strength: " << this->coffeeMachine1.brewSettings.brewStrength << std::endl;
+}
+
 /*
  new UDT 5:
  with 2 member functions
@@ -511,6 +537,7 @@ int main()
     coffeeSettings.flashDescalingIndicator(3, 101);
     coffeeSettings.brewing(3, 1);
     std::cout << "machine will shut down in: " << coffeeSettings.minutesUntilShutOff << " minutes" << std::endl;
+    coffeeSettings.printTimeTilShutOff();
     std::cout << "-------------------" << std::endl;
 
     CargoShip ship;
@@ -523,6 +550,7 @@ int main()
     amazonItems.contentIsFlammable("liquids", 3);
     amazonItems.contentIsToxic("corrosive", 2);
     std::cout << "Captain " << ship.captainName << " will lead this ship" << std::endl;
+    ship.printCaptainName();
     std::cout << "-------------------" << std::endl;
    
     Computer macBook;
@@ -531,11 +559,14 @@ int main()
     macBook.displayData("new message", false);
     macBook.changeDisplayBrightness(84);
     std::cout << "display brightness is now at: " << macBook.displayBrightness << '%' << std::endl;
+    macBook.printDisplayBrightness();
     std::cout << "-------------------" << std::endl;
 
     CoffeeShop luigisCafe;
     luigisCafe.cleanMachine(45);
-    luigisCafe.prepareOrder(2, 4, "Tom Miller");
+    luigisCafe.prepareOrder(2, 5, "Tom Miller");
+    std::cout << "ordered brew strength: " << luigisCafe.coffeeMachine1.brewSettings.brewStrength << std::endl;
+    luigisCafe.printOrderedStrength();
     std::cout << "-------------------" << std::endl;
 
     TransportTracking trackingOrder;

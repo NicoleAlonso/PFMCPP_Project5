@@ -136,7 +136,7 @@ CoffeeMachine::Settings::~Settings()
 void CoffeeMachine::Settings::setTimer(int startTime, int shutOffTime)
 {
     minutesUntilShutOff = (shutOffTime - startTime) * 10;
-    std::cout << "CoffeeMachine::Settings::setTimer(): " << minutesUntilShutOff << "" << std::endl;
+    std::cout << "CoffeeMachine::Settings::setTimer(): " << minutesUntilShutOff << std::endl;
 }
 
 void CoffeeMachine::Settings::setBrewStrength(int newBrewStrength)
@@ -572,7 +572,6 @@ int main()
     TransportTracking trackingOrder;
     trackingOrder.transportStatus(1,3);
     trackingOrder.displayTransportItems();
-    
     std::cout << "-------------------" << std::endl;
 
     std::cout << "good to go!" << std::endl;

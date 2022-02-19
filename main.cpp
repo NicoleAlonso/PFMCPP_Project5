@@ -71,6 +71,7 @@ void someMemberFunction(const Axe& axe);
 
 
 #include <iostream>
+#include "LeakedObjectDetector.h"
 /*
  copied UDT 1:
  */
@@ -99,6 +100,7 @@ struct CoffeeMachine
         bool flashDescalingIndicator(int waterHardness, int numCyclesMade);
         void brewing(int numOrder, int cupsBrewed);
         void printTimeTilShutOff();
+        JUCE_LEAK_DETECTOR(Settings)
     };
 
     void heatWater(float tempInCelsius = 93.4f);
@@ -106,6 +108,18 @@ struct CoffeeMachine
     void maintainHeat(float timeToMaintain = 5.5f, float tempInCelsius = 85.0f);
 
     Settings brewSettings;
+    JUCE_LEAK_DETECTOR(CoffeeMachine)
+};
+
+struct CoffeeMachineWrapper
+{
+    CoffeeMachineWrapper(CoffeeMachine* ptr) : ptrToCoffeeMachine(ptr) {}
+    ~CoffeeMachineWrapper()
+    {
+        delete ptrToCoffeeMachine;
+    }
+
+    CoffeeMachine* ptrToCoffeeMachine = nullptr;
 };
 
 CoffeeMachine::CoffeeMachine()
@@ -207,7 +221,8 @@ struct CargoShip
 
         bool contentIsFlammable(std::string category, int igniteLevel = 1); 
         bool contentIsToxic(std::string toxicityType, int classRating = 4); 
-        float numItemsPerContainer(float singleItemSize, float containerSize = 38.5f); 
+        float numItemsPerContainer(float singleItemSize, float containerSize = 38.5f);
+        JUCE_LEAK_DETECTOR(CargoContent) 
     };
 
     void transportGoods(std::string contentTypeA, std::string contentTypeB, int amountOfContainers);
@@ -217,6 +232,18 @@ struct CargoShip
     void printCaptainName();
 
     CargoContent nextCargoLoad;
+    JUCE_LEAK_DETECTOR(CargoShip) 
+};
+
+struct CargoshipWrapper
+{
+    CargoshipWrapper(CargoShip* ptr) : ptrToCargoShip(ptr) {}
+    ~CargoshipWrapper()
+    {
+        delete ptrToCargoShip;
+    }
+
+    CargoShip* ptrToCargoShip = nullptr;
 };
 
 CargoShip::CargoShip() : 
@@ -356,6 +383,18 @@ struct Computer
     void displayData(std::string fileName = "unknown", bool fullscreen = false);
     void changeDisplayBrightness(int newBrightVal);
     void printDisplayBrightness();
+    JUCE_LEAK_DETECTOR(Computer) 
+};
+
+struct ComputerWrapper
+{
+    ComputerWrapper(Computer* ptr) : ptrToComputer(ptr) {}
+    ~ComputerWrapper()
+    {
+        delete ptrToComputer;
+    }
+
+    Computer* ptrToComputer = nullptr;
 };
 
 Computer::Computer()
@@ -428,6 +467,18 @@ struct CoffeeShop
     void prepareOrder(int cupsOrdered, int brewStrength, std::string customerName);
     void cleanMachine(int cyclesMade);
     void printOrderedStrength();
+    JUCE_LEAK_DETECTOR(CoffeeShop) 
+};
+
+struct CoffeeshopWrapper
+{
+    CoffeeshopWrapper(CoffeeShop* ptr) : ptrToCoffeeShop(ptr) {}
+    ~CoffeeshopWrapper()
+    {
+        delete ptrToCoffeeShop;
+    }
+
+    CoffeeShop* ptrToCoffeeShop = nullptr;
 };
 
 CoffeeShop::CoffeeShop()
@@ -475,6 +526,18 @@ struct TransportTracking
 
     void transportStatus(int loaded, int toLoad);
     void displayTransportItems();
+    JUCE_LEAK_DETECTOR(TransportTracking) 
+};
+
+struct TransportTrackingWrapper
+{
+    TransportTrackingWrapper(TransportTracking* ptr) : ptrToTransportTracking(ptr) {}
+    ~TransportTrackingWrapper()
+    {
+        delete ptrToTransportTracking;
+    }
+
+    TransportTracking* ptrToTransportTracking = nullptr;
 };
 
 TransportTracking::TransportTracking()
@@ -518,14 +581,13 @@ void TransportTracking::displayTransportItems()
  Wait for my code review.
  */
 
-#include <iostream>
 int main()
 {
-    CoffeeMachine nespressoMachine;
+    CoffeeMachineWrapper nespresso(new CoffeeMachine());
     CoffeeMachine::Settings coffeeSettings;
 
-    nespressoMachine.heatWater(95.0f);
-    nespressoMachine.dripWater(4);
+    nespresso.ptrToCoffeeMachine->heatWater(95.0f);
+    nespresso.ptrToCoffeeMachine->dripWater(4);
 
     coffeeSettings.setBrewStrength(3);
     coffeeSettings.setTimer(7, 8);
@@ -535,39 +597,41 @@ int main()
     coffeeSettings.printTimeTilShutOff();
     std::cout << "-------------------" << std::endl;
 
-    CargoShip ship;
+    CargoshipWrapper ship(new CargoShip());
     CargoShip::CargoContent amazonItems;
     
-    ship.transportGoods("fridges", " washmachines", 250);
-    ship.burnFuel(80.5f, 800.0f, true);
-    ship.readyForDeparture(0, 5);
+    ship.ptrToCargoShip->transportGoods("fridges", " washmachines", 250);
+    ship.ptrToCargoShip->burnFuel(80.5f, 800.0f, true);
+    ship.ptrToCargoShip->readyForDeparture(0, 5);
 
     amazonItems.contentIsFlammable("liquids", 3);
     amazonItems.contentIsToxic("corrosive", 2);
-    std::cout << "Captain " << ship.captainName << " will lead this ship" << std::endl;
-    ship.printCaptainName();
+    std::cout << "Captain " << ship.ptrToCargoShip->captainName << " will lead this ship" << std::endl;
+    ship.ptrToCargoShip->printCaptainName();
     std::cout << "-------------------" << std::endl;
    
-    Computer macBook;
-    macBook.storeData(5, 64, "invoices");
-    macBook.processData(20.0f, 0.05f);
-    macBook.displayData("new message", false);
-    macBook.changeDisplayBrightness(84);
-    std::cout << "display brightness is now at: " << macBook.displayBrightness << '%' << std::endl;
-    macBook.printDisplayBrightness();
+    //Computer macBook;
+    ComputerWrapper macBook(new Computer());
+    macBook.ptrToComputer->storeData(5, 64, "invoices");
+    macBook.ptrToComputer->processData(20.0f, 0.05f);
+    macBook.ptrToComputer->displayData("new message", false);
+    macBook.ptrToComputer->changeDisplayBrightness(84);
+    std::cout << "display brightness is now at: " << macBook.ptrToComputer->displayBrightness << '%' << std::endl;
+    macBook.ptrToComputer->printDisplayBrightness();
     std::cout << "-------------------" << std::endl;
 
-    CoffeeShop luigisCafe;
-    luigisCafe.cleanMachine(45);
-    luigisCafe.prepareOrder(2, 5, "Tom Miller");
-    std::cout << "ordered brew strength: " << luigisCafe.coffeeMachine1.brewSettings.brewStrength << std::endl;
-    luigisCafe.printOrderedStrength();
+    CoffeeshopWrapper luigisCafe(new CoffeeShop());
+    luigisCafe.ptrToCoffeeShop->cleanMachine(45);
+    luigisCafe.ptrToCoffeeShop->prepareOrder(2, 5, "Tom Miller");
+    std::cout << "ordered brew strength: " << luigisCafe.ptrToCoffeeShop->coffeeMachine1.brewSettings.brewStrength << std::endl;
+    luigisCafe.ptrToCoffeeShop->printOrderedStrength();
     std::cout << "-------------------" << std::endl;
 
-    TransportTracking trackingOrder;
-    trackingOrder.transportStatus(1,3);
-    trackingOrder.displayTransportItems();
+    TransportTrackingWrapper trackingOrder(new TransportTracking());
+    trackingOrder.ptrToTransportTracking->transportStatus(1,3);
+    trackingOrder.ptrToTransportTracking->displayTransportItems();
     std::cout << "-------------------" << std::endl;
 
     std::cout << "good to go!" << std::endl;
+    
 }

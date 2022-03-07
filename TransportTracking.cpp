@@ -24,7 +24,7 @@ void TransportTracking::transportStatus(int loaded, int toLoad)
     }  
 }
 
-void TransportTracking::displayTransportItems()
+void TransportTracking::displayTransportItems() 
 {
     computer.displayData(transport.nextCargoLoad.contentA, true);
 }

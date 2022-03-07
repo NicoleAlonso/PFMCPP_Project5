@@ -55,7 +55,7 @@ void CoffeeMachine::Settings::brewing(int numOrder, int cupsBrewed)
     std::cout << "cups brewed: " << cupsBrewed << " -> Order is ready!" << std::endl;
 }
 
-void CoffeeMachine::Settings::printTimeTilShutOff()
+void CoffeeMachine::Settings::printTimeTilShutOff() const
 {
     std::cout << "machine will shut down in: " << this->minutesUntilShutOff << " minutes" << std::endl;
 }

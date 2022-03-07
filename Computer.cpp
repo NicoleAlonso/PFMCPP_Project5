@@ -51,7 +51,7 @@ void Computer::changeDisplayBrightness(int newBrightVal)
     }  
 }
 
-void Computer::printDisplayBrightness()
+void Computer::printDisplayBrightness() const
 {
     std::cout << "display brightness is now at: " << this->displayBrightness << '%' << std::endl;
 }

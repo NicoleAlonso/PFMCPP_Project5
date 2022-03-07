@@ -25,7 +25,7 @@ CargoShip::CargoContent::~CargoContent()
     std::cout << "CargoShip::CargoContent destroyed" << std::endl;
 }
 
-bool CargoShip::CargoContent::contentIsFlammable(std::string category, int igniteLevel)
+bool CargoShip::CargoContent::contentIsFlammable(const std::string category, const int igniteLevel)
 {
     if(igniteLevel > 2 && category == "liquids")
     {   
@@ -41,7 +41,7 @@ bool CargoShip::CargoContent::contentIsFlammable(std::string category, int ignit
     return false;
 }
 
-bool CargoShip::CargoContent::contentIsToxic(std::string toxicityType, int classRating)
+bool CargoShip::CargoContent::contentIsToxic(const std::string toxicityType, const int classRating)
 {
     if(classRating > 4 && toxicityType == "biohazard")
     {
@@ -86,7 +86,7 @@ void CargoShip::handleGoods(int numContainersToLoad, bool shipIsEmpty)
     std::cout << "CargoContent::handleGoods() amount to load/unload: "<< numContainersToLoad << std::endl;
 }
 
-void CargoShip::burnFuel(float consumptionPerKm, float travelDistance, bool shipIsLoaded)
+void CargoShip::burnFuel(const float consumptionPerKm, float travelDistance, bool shipIsLoaded)
 {
     float fuelBurned;
     
@@ -115,7 +115,7 @@ bool CargoShip::readyForDeparture(int containersLoaded, int containersToLoad)
     return false;
 }
 
-void CargoShip::printCaptainName()
+void CargoShip::printCaptainName() const
 {
     std::cout << "Captain " << this->captainName << " will lead this ship" << std::endl;
 }

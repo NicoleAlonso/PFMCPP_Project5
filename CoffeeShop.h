@@ -13,6 +13,6 @@ struct CoffeeShop
 
     void prepareOrder(int cupsOrdered, int brewStrength, std::string customerName);
     void cleanMachine(int cyclesMade);
-    void printOrderedStrength();
+    void printOrderedStrength() const;
     JUCE_LEAK_DETECTOR(CoffeeShop) 
 };

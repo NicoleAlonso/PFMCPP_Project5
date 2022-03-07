@@ -15,6 +15,6 @@ struct Computer
     void processData(float amountToProcess, float timeToProcess = 0.02f);
     void displayData(std::string fileName = "unknown", bool fullscreen = false);
     void changeDisplayBrightness(int newBrightVal);
-    void printDisplayBrightness();
+    void printDisplayBrightness() const;
     JUCE_LEAK_DETECTOR(Computer) 
 };

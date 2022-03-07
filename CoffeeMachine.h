@@ -25,7 +25,7 @@ struct CoffeeMachine
         void setBrewStrength(int brewStrength);
         bool flashDescalingIndicator(int waterHardness, int numCyclesMade);
         void brewing(int numOrder, int cupsBrewed);
-        void printTimeTilShutOff();
+        void printTimeTilShutOff() const;
         JUCE_LEAK_DETECTOR(Settings)
     };
 

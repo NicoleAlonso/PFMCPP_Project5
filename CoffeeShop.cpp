@@ -27,7 +27,7 @@ void CoffeeShop::prepareOrder(int cupsOrdered, int orderedStrength, std::string 
     coffeeMachine1.brewSettings.brewing(cupsOrdered, 0);
 }
 
-void CoffeeShop::printOrderedStrength()
+void CoffeeShop::printOrderedStrength() const
 {
     std::cout << "ordered brew strength: " << this->coffeeMachine1.brewSettings.brewStrength << std::endl;
 }

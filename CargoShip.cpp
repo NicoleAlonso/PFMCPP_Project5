@@ -25,7 +25,7 @@ CargoShip::CargoContent::~CargoContent()
     std::cout << "CargoShip::CargoContent destroyed" << std::endl;
 }
 
-bool CargoShip::CargoContent::contentIsFlammable(const std::string category, const int igniteLevel)
+bool CargoShip::CargoContent::contentIsFlammable(const std::string& category, const int& igniteLevel)
 {
     if(igniteLevel > 2 && category == "liquids")
     {   
@@ -41,7 +41,7 @@ bool CargoShip::CargoContent::contentIsFlammable(const std::string category, con
     return false;
 }
 
-bool CargoShip::CargoContent::contentIsToxic(const std::string toxicityType, const int classRating)
+bool CargoShip::CargoContent::contentIsToxic(const std::string& toxicityType, const int& classRating)
 {
     if(classRating > 4 && toxicityType == "biohazard")
     {

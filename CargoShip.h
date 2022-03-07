@@ -19,8 +19,8 @@ struct CargoShip
         CargoContent();
         ~CargoContent();
 
-        bool contentIsFlammable(const std::string category, const int igniteLevel = 1); 
-        bool contentIsToxic(const std::string toxicityType, const int classRating = 4); 
+        bool contentIsFlammable(const std::string& category, const int& igniteLevel = 1); 
+        bool contentIsToxic(const std::string& toxicityType, const int& classRating = 4); 
         float numItemsPerContainer(float singleItemSize, float containerSize = 38.5f);
         JUCE_LEAK_DETECTOR(CargoContent) 
     };

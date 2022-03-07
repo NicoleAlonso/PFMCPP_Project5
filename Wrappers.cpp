@@ -7,7 +7,6 @@
 
 
 CoffeeMachineWrapper::CoffeeMachineWrapper(CoffeeMachine* ptr) : ptrToCoffeeMachine(ptr) {}
-
 CoffeeMachineWrapper::~CoffeeMachineWrapper()
 {
     delete ptrToCoffeeMachine;

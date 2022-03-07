@@ -11,6 +11,41 @@ CoffeeShop::~CoffeeShop()
     std::cout << "CoffeeShop destroyed" << std::endl;
 }
 
+CoffeeShop::Order::Order()
+{
+    std::cout << "CoffeeShop::Order being constructed" << std::endl;
+}
+
+CoffeeShop::Order::~Order()
+{
+    std::cout << "CoffeeShop::Order destroyed" << std::endl;
+}
+
+CoffeeShop::Customer::Customer()
+{
+    std::cout << "CoffeeShop::Customer being constructed" << std::endl;
+}
+
+CoffeeShop::Customer::~Customer()
+{
+    std::cout << "CoffeeShop::Customer destroyed" << std::endl;
+}
+
+CoffeeShop::Order CoffeeShop::Customer::getPreferredOrder()
+{
+    CoffeeShop::Order customOrder;
+    customOrder.customerName = "Alex";
+    customOrder.drinkName = "Espresso";
+    customOrder.numCups = 2;
+    customOrder.brewStrength = 4;
+    return customOrder;
+}
+
+void CoffeeShop::prepareCustomerOrder(const Order& order)
+{
+    prepareOrder(order.numCups, order.brewStrength, order.customerName);
+}
+
 void CoffeeShop::cleanMachine(int cyclesMade)
 {
     if(coffeeMachine1.brewSettings.flashDescalingIndicator(3, cyclesMade))

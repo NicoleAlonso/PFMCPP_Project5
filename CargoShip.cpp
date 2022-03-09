@@ -45,12 +45,12 @@ bool CargoShip::CargoContent::contentIsToxic(const std::string& toxicityType, co
 {
     if(classRating > 4 && toxicityType == "biohazard")
     {
-         std::cout << "CargoContent::contentIsToxic(): Content classified as biohazard!" << std::endl;
+        std::cout << "CargoContent::contentIsToxic(): Content classified as biohazard!" << std::endl;
         return true;
     }
     else if(classRating > 5 && toxicityType == "corrosive")
     {
-         std::cout << "CargoContent::contentIsToxic(): Content classified as corrosive!" << std::endl;
+        std::cout << "CargoContent::contentIsToxic(): Content classified as corrosive!" << std::endl;
         return true;
     }
     std::cout << "CargoContent::contentIsToxic(): Content is not toxic" << std::endl;
@@ -59,7 +59,6 @@ bool CargoShip::CargoContent::contentIsToxic(const std::string& toxicityType, co
 
 float CargoShip::CargoContent::numItemsPerContainer(float singleItemSize, float containerSize)
 {
-    
     std::cout << "CargoContent::numItemsPerContainer(): total items "<< numItems << std::endl;
     return (containerSize/singleItemSize) * numItems;
 }

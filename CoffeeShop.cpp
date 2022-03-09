@@ -21,7 +21,7 @@ CoffeeShop::Order::~Order()
     std::cout << "CoffeeShop::Order destroyed" << std::endl;
 }
 
-CoffeeShop::Customer::Customer()
+CoffeeShop::Customer::Customer(std::string n, std::string d) : name(n), drink(d)
 {
     std::cout << "CoffeeShop::Customer being constructed" << std::endl;
 }
@@ -34,10 +34,11 @@ CoffeeShop::Customer::~Customer()
 CoffeeShop::Order CoffeeShop::Customer::getPreferredOrder()
 {
     CoffeeShop::Order customOrder;
-    customOrder.customerName = "Alex";
-    customOrder.drinkName = "Espresso";
+    customOrder.customerName = name;
+    customOrder.drinkName = drink;
     customOrder.numCups = 2;
     customOrder.brewStrength = 4;
+    std::cout << "creating drink: " << customOrder.drinkName << " for " << customOrder.customerName << std::endl;
     return customOrder;
 }
 

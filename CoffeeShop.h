@@ -24,8 +24,10 @@ struct CoffeeShop
 
     struct Customer
     {
-        Customer();
+        Customer(std::string n, std::string d);
         ~Customer();
+        std::string name;
+        std::string drink;
         Order getPreferredOrder();
     };
     

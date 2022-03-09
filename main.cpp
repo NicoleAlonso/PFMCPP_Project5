@@ -131,10 +131,9 @@ int main()
     std::cout << "ordered brew strength: " << luigisCafe.ptrToCoffeeShop->coffeeMachine1.brewSettings.brewStrength << std::endl;
     luigisCafe.ptrToCoffeeShop->printOrderedStrength();
     
-    CoffeeShop::Customer customer;
+    CoffeeShop::Customer customer("Alex", "Espresso");
     auto order = customer.getPreferredOrder();
     luigisCafe.ptrToCoffeeShop->prepareCustomerOrder(order);
-    std::cout << "creating drink: " << order.drinkName << std::endl;
     
     std::cout << "-------------------" << std::endl;
 
